@@ -1,37 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-  <div class="whole-post">
-
-    <div class="voting">    
-      <%= form_for ([@category, @category.posts.build]) do |f| %> 
-        <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
-      </form>
-      <% end %>
-
-      <%= form_for ([@category, @category.posts.build]) do |f| %> 
-      <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
-      <% end %>
-    </div>
-
-    <div class="post">
-
-        <div class="post-title">
-        <a href="<%=path%>"><%= @post.title %></a></div>
-
-        <div class="post-info">
-          <% hours = ((Time.now - @post.created_at) / 3600).round %>
-          <div>submitted <%= hours %> hours ago by <%= @post.author %> to <%= link_to @post.category_name, category_path(@post.category) %>
-          </div>
-          <%= link_to @post.comments.length 'comments', post_path([@post.category, @post]) %> | 
-          <%= link_to 'edit', edit_post_path([@post.category, @post]) %> | 
-          <%= link_to 'delete', [@post.category, @post],
-               method: :delete,
-               data: { confirm: 'Are you sure?' } %>
-        </div>
-
-    </div>
-
-
+<div class="whole-post">
+  <%= render "post_show" %>
 </div>
 
 <div class="top-comments">top comments</div>

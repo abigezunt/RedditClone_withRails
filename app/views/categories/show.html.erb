@@ -1,0 +1,13 @@
+<% @category.posts.each_with_index do |post, index| %>
+  <div class="whole-post">
+    <div class="index-number"><%=(index+1)%>.</div>
+    <%= render "post_show" %>
+  </div>
+<% end %>
+
+<div class="add-new-post-box">
+  <h2>Add a post:</h2>
+  <%= render "posts/form" %>
+</div>
+
+
