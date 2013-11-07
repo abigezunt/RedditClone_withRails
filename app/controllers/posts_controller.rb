@@ -7,6 +7,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def newest
+    @posts = Post.order(created_at: :desc)
+  end
+
+
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -24,11 +29,13 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+
+    @category = Category.find(params[:category_id])
+    @post = @category.comments.create(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to category_path(@category), notice: 'Post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }
@@ -54,9 +61,11 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    @category = Category.find(params[:category_id])
+    @post = @category.posts.find(params[:id])
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url }
+      format.html { redirect_to category_path(@category) }
       format.json { head :no_content }
     end
   end

@@ -1,5 +1,14 @@
 Reddit2::Application.routes.draw do
-  resources :posts
+  root 'posts#index'
+  get 'newest' => 'posts#newest'
+
+  resources :posts do
+    resources :comments
+  end
+
+  resources :categories do
+    resources :posts
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

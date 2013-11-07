@@ -1,0 +1,25 @@
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.author %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+   <p>
+    <strong>Up Votes:</strong>
+    <%= comment.up_votes %>
+  </p>
+
+   <p>
+    <strong>Down Votes:</strong>
+    <%= comment.down_votes %>
+  </p>
+
+  <p>
+   <%= link_to 'Destroy Comment', [comment.post, comment],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+  </p>
