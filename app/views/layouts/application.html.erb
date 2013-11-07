@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Reddit2</title>
+  <title>DiscussEverything</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+<% @categories = Category.all %>
+<div id="categories-header-box">
+  <% @categories.each do |category| %>
+    <div class="inline"><a href="/r/<%=category.title%>/index"><%= category.title.upcase %></a> - </div>
+  <% end %>
+</div>
+
+ <div class="header-box">
+   <%= link_to 'Discuss Everything', controller: "categories" %> |
+   <a href="/new">create a new category</a> | 
+   <a href="/newest">read all the newest posts</a> |
+   <a href="/all-categories">see all categories</a>
+ </div>
+
 <%= yield %>
 
 </body>
 </html>
+
+
+
