@@ -1,25 +1,34 @@
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.author %>
-  </p>
- 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
 
-   <p>
-    <strong>Up Votes:</strong>
-    <%= comment.up_votes %>
-  </p>
 
-   <p>
-    <strong>Down Votes:</strong>
-    <%= comment.down_votes %>
-  </p>
+<% hours = ((Time.now - comment.created_at) / 3600).round %>
+  <div class="comment-box">
+    <div class="voting">    
+      <%= form_for ([@post, @post.comments.build]) do |f| %> 
+        <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
+      </form>
+      <% end %>
 
-  <p>
-   <%= link_to 'Destroy Comment', [comment.post, comment],
+      <%= form_for ([@post, @post.comments.build]) do |f| %> 
+      <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
+      <% end %>
+    </div>
+  
+  <div class="inline-block">
+    <div class="post">
+      <div class="comment-author"><%= comment.author %> </div> 
+      <div class="post-info"><%= comment.up_votes - comment.down_votes %> points <%= hours %> hours ago</div>
+      <div class="comment-body"><%= comment.body %></div>
+  </div>
+  
+  <div class="comment-info">  
+    <%= link_to 'edit', edit_comment_path([comment.post, comment]) %> | 
+    <%= link_to 'delete', [comment.post, comment],
                method: :delete,
                data: { confirm: 'Are you sure?' } %>
-  </p>
+  </div>
+  </div>
+  </div>
+<% end %>
+
+
+

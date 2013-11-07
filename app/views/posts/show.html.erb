@@ -1,55 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+  <div class="whole-post">
 
-<p>
-  <strong>Link:</strong>
-  <%= @post.link %>
-</p>
+    <div class="voting">    
+      <%= form_for ([@category, @category.posts.build]) do |f| %> 
+        <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
+      </form>
+      <% end %>
 
-<p>
-  <strong>Author:</strong>
-  <%= @post.author %>
-</p>
+      <%= form_for ([@category, @category.posts.build]) do |f| %> 
+      <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
+      <% end %>
+    </div>
 
-<p>
-  <strong>Up votes:</strong>
-  <%= @post.up_votes %>
-</p>
+    <div class="post">
 
-<p>
-  <strong>Down votes:</strong>
-  <%= @post.down_votes %>
-</p>
+        <div class="post-title">
+        <a href="<%=path%>"><%= @post.title %></a></div>
 
-<p>
-  <strong>Category:</strong>
-  <%= @post.category %>
-</p>
+        <div class="post-info">
+          <% hours = ((Time.now - @post.created_at) / 3600).round %>
+          <div>submitted <%= hours %> hours ago by <%= @post.author %> to <%= link_to @post.category_name, category_path(@post.category) %>
+          </div>
+          <%= link_to @post.comments.length 'comments', post_path([@post.category, @post]) %> | 
+          <%= link_to 'edit', edit_post_path([@post.category, @post]) %> | 
+          <%= link_to 'delete', [@post.category, @post],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+        </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @post.text %>
-</p>
+    </div>
+
+
+</div>
+
+<div class="top-comments">top comments</div>
 
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
   <%= render @post.comments %>
 <% end %>
- 
-<h2>Add a comment:</h2>
-<%= render "comments/form" %>
- 
-<%= link_to 'Back', posts_path %>
-| <%= link_to 'Delete', [@post.category, @post],
-               method: :delete,
-               data: { confirm: 'Are you sure?' } %>
-| <%= link_to 'Edit', edit_post_path(@post) %>
+
+<div class="add-new-comment-box">
+  <h2>Add a comment:</h2>
+  <%= render "comments/form" %>
+</div>
+
