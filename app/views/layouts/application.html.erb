@@ -11,15 +11,15 @@
 <% @categories = Category.all %>
 <div id="categories-header-box">
   <% @categories.each do |category| %>
-    <div class="inline"><a href="/r/<%=category.title%>/index"><%= category.title.upcase %></a> - </div>
+    <div class="inline"><%= link_to category.name.upcase, category_path %> - </div>
   <% end %>
 </div>
 
  <div class="header-box">
    <%= link_to 'Discuss Everything', controller: "categories" %> |
-   <a href="/new">create a new category</a> | 
-   <a href="/newest">read all the newest posts</a> |
-   <a href="/all-categories">see all categories</a>
+   <%= link_to 'create a new category', new_category_path %> | 
+   <%= link_to 'read all the newest posts', '/newest'%> |
+   <%= link_to 'see all categories', categories_path %>
  </div>
 
 <%= yield %>
