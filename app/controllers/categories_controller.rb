@@ -3,19 +3,15 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   # GET /categories.json
-  def all_categories
+  def index
     @categories = Category.all
+    @category = Category.new
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
     @posts = Post.where(category_id: params[:id])
-  end
-
-  # GET /categories/new
-  def new
-    @category = Category.new
   end
 
   # POST /categories
