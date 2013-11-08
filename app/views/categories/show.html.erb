@@ -1,13 +1,14 @@
+
 <div id="all-posts">
 <% @category.posts.each_with_index do |post, index| %>
 <div class="index-number"><%=(index+1)%>.</div>
-
+<%= render post %>
 <% end %>
 </div>
 
 <div class="add-new-post-box">
   <h2>Add a post:</h2>
-  <%= form_for([@category, @category.posts.build], remote: true) do |f| %>
+  <%= form_for([@category, @category.posts.build]) do |f| %>
 
     <div class="field">
       <%= f.label :title %><br>
@@ -21,11 +22,12 @@
       <%= f.label :author %><br>
       <%= f.text_field :author %>
     </div>
+
+      <%= f.hidden_field :category_id, value: @category.id %>
+
     <div class="actions">
       <%= f.submit %>
     </div>
   <% end %>
 
   </div>
-
-

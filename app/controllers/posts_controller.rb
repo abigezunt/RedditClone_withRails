@@ -1,10 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  # GET /posts
-  # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.where(category_id: params[:category_id])
   end
 
   def newest
@@ -58,6 +56,36 @@ class PostsController < ApplicationController
       end
     end
   end
+
+  def up_vote
+    @post.up_votes += 1
+    @post.save
+      if @post.update(post_params)
+        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.json { head :no_content }
+        format.js
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js
+      end
+  end
+
+  def down_vote
+
+    @post.down_votes += 1
+    @post.save
+      if @post.update(post_params)
+        format.html { redirect_to @post.category, notice: 'Post was successfully updated.' }
+        format.json { head :no_content }
+        format.js
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js
+      end
+  end
+
 
   # DELETE /posts/1
   # DELETE /posts/1.json

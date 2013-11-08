@@ -1,8 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <div class="whole-post">
-  
-
     <div class="post">
 
       <div class="post-title">
@@ -27,17 +25,13 @@
 
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
+    
   <div class="voting">    
-    <%= form_for ([@post, @post.comments.build]) do |f| %> 
-      <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
-    </form>
-    <% end %>
-
-    <%= form_for ([@post, @post.comments.build]) do |f| %> 
-    <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
-    <% end %>
+    <%= image_tag("/images/up-grey.png") %>
+    <%= image_tag("/images/down-grey.png") %>
   </div>
-  <%= render @post.comments %>
+   
+  <%= render comment %>
 <% end %>
 
 <div class="add-new-comment-box">

@@ -10,3 +10,16 @@
 	             data: { confirm: 'Are you sure?' } %>
 	</div>
 <% end %>
+
+<div class="add-new-category-box">
+  <h2>Create a new category:</h2>
+  <%= form_for @category do |f| %>
+	  <div class="field">
+	    <%= f.label :name %><br>
+	    <%= f.text_field :name %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+  <% end %>
+</div>

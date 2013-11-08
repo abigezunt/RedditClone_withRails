@@ -1,18 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
-  # GET /comments
-  # GET /comments.json
-  def index
-    @comments = Comment.all
-  end
-
-  # GET /comments/1
-  # GET /comments/1.json
-  def show
-  end
-
-  # GET /comments/new
+ 
   def new
     @comment = Comment.new
   end
@@ -31,9 +18,11 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to category_post_path(@post.category_id, @post), notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
+        format.js
       else
         format.html { render action: 'new' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -45,9 +34,11 @@ class CommentsController < ApplicationController
       if @comment.update(comment_params)
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
+        format.js
       else
         format.html { render action: 'edit' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -58,11 +49,11 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.destroy
-    redirect_to post_path(@post)
 
     respond_to do |format|
       format.html { redirect_to post_path(@post) }
       format.json { head :no_content }
+      format.js
     end
   end
 

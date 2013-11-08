@@ -8,12 +8,10 @@
 </head>
 <body>
 
-<% @categories = Category.all %>
-<div id="categories-header-box">
-  <% @categories.each do |category| %>
-    <div class="inline"><%= link_to category.name.upcase, category_path(@category) %> - </div>
-  <% end %>
-</div>
+
+
+<%= render 'categories/header' %>
+
 
  <div class="header-box">
    <%= link_to 'Discuss Everything', controller: "posts" %> |
