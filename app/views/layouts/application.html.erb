@@ -11,7 +11,7 @@
 <% @categories = Category.all %>
 <div id="categories-header-box">
   <% @categories.each do |category| %>
-    <div class="inline"><%= link_to category.name.upcase, category_path %> - </div>
+    <div class="inline"><%= link_to category.name.upcase, category_path(@category) %> - </div>
   <% end %>
 </div>
 

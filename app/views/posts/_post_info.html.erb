@@ -1,8 +1,8 @@
-          <% hours = ((Time.now - @post.created_at) / 3600).round %>
-          <div>submitted <%= hours %> hours ago by <%= @post.author %> to <%= link_to @post.category_name, category_path(@post.category) %>
+          <% hours = ((Time.now - post.created_at) / 3600).round %>
+          <div>submitted <%= hours %> hours ago by <%= post.author %> to <%= link_to post.category_name, category_path(post.category) %>
           </div>
-          <%= link_to @post.comments.length 'comments', post_path([@post.category, @post]) %> | 
-          <%= link_to 'edit', edit_post_path([@post.category, @post]) %> | 
-          <%= link_to 'delete', [@post.category, @post],
+          <%= link_to post.comments.length 'comments', post_path([post.category, post]) %> | 
+          <%= link_to 'edit', edit_post_path([post.category, post]) %> | 
+          <%= link_to 'delete', [post.category, post],
                method: :delete,
                data: { confirm: 'Are you sure?' } %>

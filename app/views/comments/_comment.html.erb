@@ -2,16 +2,7 @@
 
 <% hours = ((Time.now - comment.created_at) / 3600).round %>
   <div class="comment-box">
-    <div class="voting">    
-      <%= form_for ([@post, @post.comments.build]) do |f| %> 
-        <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
-      </form>
-      <% end %>
 
-      <%= form_for ([@post, @post.comments.build]) do |f| %> 
-      <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
-      <% end %>
-    </div>
   
   <div class="inline-block">
     <div class="post">

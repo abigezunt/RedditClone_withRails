@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     @posts = Post.order(created_at: :desc)
   end
 
-
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -31,15 +30,17 @@ class PostsController < ApplicationController
   def create
 
     @category = Category.find(params[:category_id])
-    @post = @category.comments.create(post_params)
+    @post = @category.posts.create(post_params)
 
     respond_to do |format|
       if @post.save
         format.html { redirect_to category_path(@category), notice: 'Post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @post }
+        format.js
       else
         format.html { render action: 'new' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

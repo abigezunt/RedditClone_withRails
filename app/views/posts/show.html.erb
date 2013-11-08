@@ -1,13 +1,42 @@
 <p id="notice"><%= notice %></p>
 
 <div class="whole-post">
-  <%= render "post_show" %>
+  
+
+    <div class="post">
+
+      <div class="post-title">
+        <%= link_to @post.title, category_post_path(@post.category, @post) %>
+      </div>
+
+      <div class="post-info">
+        <% hours = ((Time.now - @post.created_at) / 3600).round %>
+        <div>submitted <%= hours %> hours ago by <%= @post.author %> to <%= link_to @post.category_name, category_path(@post.category) %>
+        </div>
+        <%= link_to 'comments', category_post_path(@post.category, @post) %> | 
+        <%= link_to 'edit', edit_category_post_path(@post.category, @post) %> | 
+        <%= link_to 'delete', [@post.category, @post],
+             method: :delete,
+             data: { confirm: 'Are you sure?' } %>
+      </div>
+
+    </div>
 </div>
 
 <div class="top-comments">top comments</div>
 
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
+  <div class="voting">    
+    <%= form_for ([@post, @post.comments.build]) do |f| %> 
+      <input type="image" src="/images/up-grey.png" name="up_votes" value=1 alt="Up-Vote">
+    </form>
+    <% end %>
+
+    <%= form_for ([@post, @post.comments.build]) do |f| %> 
+    <input type="image" src="/images/down-grey.png" name="down_votes" value=1 alt="Down-Vote">
+    <% end %>
+  </div>
   <%= render @post.comments %>
 <% end %>
 
